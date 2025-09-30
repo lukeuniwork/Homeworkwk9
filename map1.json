@@ -1,0 +1,63 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 700,
+    "title": "Fires since 2020",
+    "projection": {
+        "type": "equirectangular",
+        "center": [134,-28],
+        "scale": 1000
+    },
+    "layer": [
+        {
+            "data": {
+                "url":"topo.json","format": {
+                    "type": "topojson",
+                    "feature": "topo"
+                }
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": "lightgray",
+                "stroke": "white"
+            }
+        },
+        {
+            "data": {
+                "url":"modis_Australia.csv"
+            },
+            "mark": {
+                "type": "circle",
+                "tooltip": {
+                    "content": "data"
+                }
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "longitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "latitude",
+                    "type": "quantitative"
+                },
+                "size": {
+                    "field": "frp",
+                    "type": "quantitative",
+                    "title": "Power Output (MJ)",
+                    "scale": {
+                        "domain": [
+                            0,10000
+                        ]
+                    }
+                },
+                "color": {
+                "field": "brightness",
+                "type": "quantitative",
+                "title": "Brightness (Kelvin)",
+                "scale": {"scheme": "goldred"}
+                }
+            }
+        }
+    ]
+}
